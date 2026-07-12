@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(az account *)",
+      "Bash(az staticwebapp *)",
+      "Bash(curl -s *)",
+      "Bash(docker version *)",
+      "Bash(echo *)",
+      "Bash(git mv *)",
+      "Bash(grep *)",
+      "Bash(netstat *)",
+      "Bash(node -e ' *)",
+      "Bash(npm ls *)",
+      "Bash(npm run *)",
+      "Bash(npm view *)",
+      "Bash(npx --yes @redocly/cli *)",
+      "Bash(npx ng *)",
+      "Bash(npx swa *)",
+      "Bash(npx tsc *)",
+      "Bash(pkill *)",
+      "Bash(python3 -c ' *)",
+      "Bash(rm -f *)",
+      "Bash(rmdir *)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:primeng.dev)",
+      "Skill(run)",
+      "Skill(run:*)"
+    ]
+  }
+}
