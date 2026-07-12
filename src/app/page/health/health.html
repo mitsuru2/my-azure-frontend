@@ -1,0 +1,31 @@
+<main class="health">
+  <a routerLink="/">&larr; ホームへ戻る</a>
+  <h1>health</h1>
+  <p>GET /health を実行してヘルスチェック結果を表示します。</p>
+
+  <button pButton type="button" [disabled]="loading()" (click)="execute()">
+    @if (loading()) {
+      <svg data-p-icon="spinner" class="p-icon-spin"></svg>
+    } @else {
+      <svg data-p-icon="play"></svg>
+    }
+    実行
+  </button>
+
+  @if (result(); as result) {
+    <p-card header="結果" styleClass="result-card">
+      <dl>
+        <dt>product</dt>
+        <dd>{{ result.product }}</dd>
+        <dt>version</dt>
+        <dd>{{ result.version }}</dd>
+        <dt>status</dt>
+        <dd>{{ result.status }}</dd>
+      </dl>
+    </p-card>
+  }
+
+  @if (error(); as error) {
+    <p-message severity="error">{{ error }}</p-message>
+  }
+</main>

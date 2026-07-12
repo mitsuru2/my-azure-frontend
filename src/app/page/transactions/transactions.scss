@@ -1,0 +1,65 @@
+.transactions {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+p-fileupload {
+  width: 100%;
+}
+
+.drop-zone {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 1.5rem;
+  border: 2px dashed var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius);
+  cursor: pointer;
+  text-align: center;
+}
+
+.drop-zone-title {
+  font-weight: 700;
+}
+
+.drop-zone-subtitle {
+  font-size: small;
+  color: gray;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+dt {
+  font-weight: 600;
+}
+
+dd {
+  margin: 0;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

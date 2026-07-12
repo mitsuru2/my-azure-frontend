@@ -1,0 +1,75 @@
+<main class="transactions">
+  <a routerLink="/">&larr; ホームへ戻る</a>
+  <h1>transactions</h1>
+  <p>取引明細CSV (SBI証券形式) をアップロードし、配当履歴シートへの記録処理を実行します。</p>
+
+  <div class="field">
+    <label for="account">口座名義</label>
+    <p-select
+      inputId="account"
+      [options]="accounts"
+      [ngModel]="account()"
+      (ngModelChange)="account.set($event)"
+    />
+  </div>
+
+  <p-fileupload
+    mode="advanced"
+    accept=".csv,text/csv"
+    [multiple]="false"
+    [customUpload]="true"
+    [showUploadButton]="false"
+    [showCancelButton]="false"
+    (onSelect)="onFileSelect($event)"
+    (onClear)="onFileClear()"
+  >
+    <ng-template #content let-chooseCallback="chooseCallback">
+      <div
+        class="drop-zone"
+        role="button"
+        tabindex="0"
+        (click)="chooseCallback()"
+        (keydown.enter)="chooseCallback()"
+        (keydown.space)="chooseCallback()"
+      >
+        @if (selectedFile(); as file) {
+          <span class="drop-zone-title">{{ file.name }}</span>
+          <span class="drop-zone-subtitle">クリックして別のファイルを選択</span>
+        } @else {
+          <span class="drop-zone-title">CSVファイルをここにドロップ</span>
+          <span class="drop-zone-subtitle">またはクリックしてファイルを選択（.csv）</span>
+        }
+      </div>
+    </ng-template>
+  </p-fileupload>
+
+  <button pButton type="button" [disabled]="!canSubmit()" (click)="execute()">
+    @if (submitting()) {
+      <svg data-p-icon="spinner" class="p-icon-spin"></svg>
+    } @else {
+      <svg data-p-icon="play"></svg>
+    }
+    実行
+  </button>
+
+  @if (submitting()) {
+    <p-message severity="info">処理中です。しばらくお待ちください…</p-message>
+  }
+
+  @if (status(); as status) {
+    <p-card header="結果" styleClass="result-card">
+      <dl>
+        <dt>runtimeStatus</dt>
+        <dd>{{ status.runtimeStatus }}</dd>
+        @if (status.output) {
+          <dt>output</dt>
+          <dd><pre>{{ status.output | json }}</pre></dd>
+        }
+      </dl>
+    </p-card>
+  }
+
+  @if (error(); as error) {
+    <p-message severity="error">{{ error }}</p-message>
+  }
+</main>

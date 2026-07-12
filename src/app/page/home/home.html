@@ -1,0 +1,12 @@
+<main class="home">
+  <h1>my-azure-services</h1>
+  <div class="links">
+    @for (link of links; track link.path) {
+      <a class="link" [routerLink]="link.path">
+        <p-card [header]="link.title">
+          <p>{{ link.description }}</p>
+        </p-card>
+      </a>
+    }
+  </div>
+</main>

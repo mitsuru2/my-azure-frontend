@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "i18n": "ng extract-i18n --output-path src/locale",
-    "serve:ssr:my-azure-frontend": "node dist/my-azure-frontend/server/server.mjs"
+    "serve:ssr:my-azure-frontend": "node dist/my-azure-frontend/server/server.mjs",
+    "mock": "prism mock api/openapi.yaml -p 7071 -h 0.0.0.0"
   },
   "private": true,
   "packageManager": "npm@11.17.0",
@@ -36,6 +37,7 @@
     "@angular/compiler-cli": "^22.0.0",
     "@angular/localize": "^22.0.6",
     "@eslint/js": "^10.0.1",
+    "@stoplight/prism-cli": "^5.15.11",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "angular-eslint": "22.0.0",

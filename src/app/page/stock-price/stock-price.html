@@ -1,0 +1,63 @@
+<main class="stock-price">
+  <a routerLink="/">&larr; ホームへ戻る</a>
+  <h1>stock-price</h1>
+  <p>GET /stock-price を実行して株価・投資信託基準価額を取得します。</p>
+
+  <div class="form">
+    <div class="field">
+      <label for="market">マーケット</label>
+      <p-select
+        inputId="market"
+        [options]="markets"
+        optionLabel="label"
+        optionValue="value"
+        [ngModel]="market()"
+        (ngModelChange)="market.set($event)"
+      />
+    </div>
+    <div class="field">
+      <label for="ticker">ティッカー</label>
+      <input
+        id="ticker"
+        type="text"
+        pInputText
+        placeholder="例: 7203, AAPL"
+        [ngModel]="ticker()"
+        (ngModelChange)="ticker.set($event)"
+      />
+    </div>
+    <button pButton type="button" [disabled]="loading()" (click)="execute()">
+      @if (loading()) {
+        <svg data-p-icon="spinner" class="p-icon-spin"></svg>
+      } @else {
+        <svg data-p-icon="play"></svg>
+      }
+      実行
+    </button>
+  </div>
+
+  @if (result(); as result) {
+    <p-card header="結果" styleClass="result-card">
+      <dl>
+        <dt>market</dt>
+        <dd>{{ result.market }}</dd>
+        <dt>ticker</dt>
+        <dd>{{ result.ticker }}</dd>
+        <dt>price</dt>
+        <dd>{{ result.price ?? '-' }}</dd>
+        <dt>currency</dt>
+        <dd>{{ result.currency ?? '-' }}</dd>
+        <dt>timestamp</dt>
+        <dd>{{ result.timestamp }}</dd>
+        @if (result.error) {
+          <dt>error</dt>
+          <dd>{{ result.error }}</dd>
+        }
+      </dl>
+    </p-card>
+  }
+
+  @if (error(); as error) {
+    <p-message severity="error">{{ error }}</p-message>
+  }
+</main>
