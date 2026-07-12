@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat -tlnp)",
+      "Bash(npx tsc *)",
+      "Bash(python3 -c ' *)",
+      "Bash(grep -o 'type: Select, isStandalone: true, selector: \"p-select[^}]*inputs: {[^}]*}' /workspaces/my-azure-frontend/node_modules/primeng/fesm2022/primeng-select.mjs)"
+    ]
+  }
+}

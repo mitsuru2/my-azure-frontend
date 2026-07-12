@@ -26,7 +26,7 @@
         (ngModelChange)="ticker.set($event)"
       />
     </div>
-    <button pButton type="button" [disabled]="loading()" (click)="execute()">
+    <button pButton type="button" [disabled]="loading() || !ticker().trim()" (click)="execute()">
       @if (loading()) {
         <svg data-p-icon="spinner" class="p-icon-spin"></svg>
       } @else {
@@ -37,7 +37,7 @@
   </div>
 
   @if (result(); as result) {
-    <p-card header="結果" styleClass="result-card">
+    <p-card header="結果" class="result-card">
       <dl>
         <dt>market</dt>
         <dd>{{ result.market }}</dd>

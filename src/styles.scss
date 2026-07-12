@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+// PrimeNG File Upload コンポーネントのスタイル強制変更。
+// - Choose ボタン非表示。それに伴う余白調整。
+.p-fileupload-header {
+  display: none !important;
+}
+.p-fileupload-content {
+  padding-top: 18px !important;
+}
+
+// PrimeNG Card コンポーネントのスタイル強制変更。
+// - ボーダー色を設定。
+.p-card {
+  border: 1px solid var(--p-content-border-color);
+}

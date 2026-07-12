@@ -14,11 +14,16 @@
       "Bash(npx --yes @redocly/cli *)",
       "Bash(npx ng *)",
       "Bash(npx swa *)",
+      "Bash(npx tsc *)",
       "Bash(pkill -f *)",
       "Bash(python3 -c ' *)",
       "Bash(rm -f *)",
       "Bash(rmdir *)",
-      "WebFetch(domain:primeng.dev)"
+      "WebFetch(domain:primeng.dev)",
+      "Read(//tmp/**)",
+      "Bash(node shot2.mjs)",
+      "Bash(pkill -f \"ng serve\")",
+      "Bash(pkill -f \"npm run start\")"
     ]
   }
 }
