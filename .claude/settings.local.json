@@ -17,7 +17,8 @@
       "Bash(rmdir /workspaces/my-azure-frontend/tmp)",
       "Bash(docker version *)",
       "Bash(rm -f /workspaces/my-azure-frontend/eslint-report.json)",
-      "Bash(git -C /workspaces/my-azure-frontend status --short)"
+      "Bash(git -C /workspaces/my-azure-frontend status --short)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

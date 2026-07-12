@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="ng2.template" source-language="ja" target-language="en-GB">
+    <body>
+      <trans-unit id="hello" datatype="html">
+        <source>こんにちは</source>
+        <target>Hello</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home" datatype="html">
+        <source>ホーム</source>
+        <target>Home</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

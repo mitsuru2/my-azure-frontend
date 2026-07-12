@@ -1,0 +1,134 @@
+name: Manual Release Build
+
+on:
+  workflow_dispatch: # 手動実行のみ
+
+# 環境変数設定
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PATH: ghcr.io/${{ github.repository }}:main
+  BUILD_OUTPUT_DIR: dist/my-azure-frontend/browser
+
+jobs:
+  # SWAのビルド
+  build:
+    name: SWAのビルド
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # GHCRへのログイン
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # mainタグのイメージを取得。
+      - name: Pull Docker image
+        run: docker pull ${{ env.IMAGE_PATH }}
+
+      # ビルドコマンドの実行。
+      # ホストのコードをコンテナ内の作業ディレクトリ(/app)にマウントして実行
+      # チェックアウトしたソースツリーでDockerイメージのnode_modulesが上書きされてしまうのを防止するために
+      # /app/node_modulesに対して匿名ボリュームをマウント。
+      - name: Build SWA
+        run: |
+          docker run --rm \
+            --mount type=bind,source=${{ github.workspace }},target=/app \
+            --mount type=volume,target=/app/node_modules \
+            --env PRIMENG_LICENSE_KEY=${{ secrets.PRIMENG_LICENSE_KEY }} \
+            ${{ env.IMAGE_PATH }} \
+            npm run build
+
+      # ビルド成果物をアーティファクトとして保存 (1日で失効)
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: swa-build
+          path: ${{ env.BUILD_OUTPUT_DIR }}
+          retention-days: 1
+
+  # SWAのデプロイ (プレビュー)
+  deploy-preview:
+    name: SWAのデプロイ (プレビュー)
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # az login (OIDC) に必要
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: swa-build
+          path: ${{ env.BUILD_OUTPUT_DIR }}
+
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install SWA CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      # deploy-tokenを渡さない場合、swa CLIはaz loginのセッションを使い
+      # app-name/resource-groupからAzure Resource Manager経由でデプロイトークンを取得する。
+      - name: Deploy to SWA (preview)
+        id: deploy
+        run: |
+          OUTPUT=$(swa deploy "${{ env.BUILD_OUTPUT_DIR }}" \
+            --app-name "${{ vars.AZURE_SWA_NAME }}" \
+            --resource-group "${{ vars.AZURE_RG_NAME }}" \
+            --subscription-id "${{ vars.AZURE_SUBSCRIPTION_ID }}" \
+            2>&1 | tee /dev/stderr)
+
+          URL=$(echo "$OUTPUT" | grep -oE 'https://[a-zA-Z0-9.-]+\.azurestaticapps\.net[^[:space:]]*' | head -n1 || true)
+
+          echo "## SWA プレビューデプロイ" >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "$URL" ]; then
+            echo "[$URL]($URL)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "プレビューURLの取得に失敗しました。上記ログを確認してください。" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  # SWAのデプロイ (本番)
+  deploy-production:
+    name: SWAのデプロイ (本番)
+    needs: [build, deploy-preview]
+    runs-on: ubuntu-latest
+    environment: approval # 本番デプロイ前に手動承認を要求
+    permissions:
+      contents: read
+      id-token: write # az login (OIDC) に必要
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: swa-build
+          path: ${{ env.BUILD_OUTPUT_DIR }}
+
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install SWA CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      - name: Deploy to SWA (production)
+        run: |
+          swa deploy "${{ env.BUILD_OUTPUT_DIR }}" \
+            --app-name "${{ vars.AZURE_SWA_NAME }}" \
+            --resource-group "${{ vars.AZURE_RG_NAME }}" \
+            --subscription-id "${{ vars.AZURE_SUBSCRIPTION_ID }}" \
+            --env production

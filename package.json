@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "./scripts/generate-license.sh && ng build",
+    "build": "./scripts/generate-license.sh && npm run clean && ng build && cp -r src/swa/. dist/my-azure-frontend/browser",
+    "clean": "rm -rf dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
