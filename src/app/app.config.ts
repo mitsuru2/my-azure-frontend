@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import { primeNgLicense } from '../_license';
-import Material from '@primeuix/themes/material';
+import { MyPreset } from '../styles';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +15,13 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       license: primeNgLicense,
       theme: {
-        preset: Material,
+        preset: MyPreset,
+        options: {
+          prefix: 'p', // CSS変数のプリフィックス。 var(--p-primary-color)
+          darkModeSelector: false || 'none', // ダークモードOFF
+          cssLayer: false, // 素のCSS/SCSSを使用。CSSスタイル名の衝突回避のためのレイヤーを作らない。
+          cssVariables: true, // トークンをCSS変数として出力する。
+        },
       },
       inputVariant: 'filled',
     }),
