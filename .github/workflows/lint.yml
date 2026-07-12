@@ -38,8 +38,8 @@ jobs:
       - name: Run Lint
         run: |
           docker run --rm \
-            --mount type=bind,source=${{ github.workspace }},target=/home/node/app \
-            --mount type=volume,target=/home/node/app/node_modules \
+            --mount type=bind,source=${{ github.workspace }},target=/app \
+            --mount type=volume,target=/app/node_modules \
             ${{ env.IMAGE_PATH }} \
             npm run lint -- --format json --output-file eslint-report.json || true
 

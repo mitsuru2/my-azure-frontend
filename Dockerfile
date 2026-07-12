@@ -27,11 +27,11 @@ RUN mkdir -p /etc/sudoers.d \
     && chmod 0440 /etc/sudoers.d/node
     
 # コンテナ内の作業ディレクトリ。ここにアプリケーションコードが配置される。
-WORKDIR /home/node/app
+WORKDIR /app
 
 # Dev Container での処理を可能にするため、workspace の所有者を変更する。
 # --> .devcontainer/devcontainer.json を参照。
-RUN chown -R node:node /home/node/app
+RUN chown -R node:node /app
 
 # package.json と package-lock.json を作業ディレクトリにコピーし、パッケージをインストールする。
 # Angular はバージョン依存関係が非常にシビアなため、意図しない最新バージョンの
@@ -39,6 +39,7 @@ RUN chown -R node:node /home/node/app
 COPY --chown=node:node package*.json ./
 USER node
 RUN npm ci
+USER root
 
 # コンテナ実行時にソースコードはマウントされるため、イメージにはコピーしない。
 # COPY . .

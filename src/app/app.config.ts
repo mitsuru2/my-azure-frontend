@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
         preset: MyPreset,
         options: {
           prefix: 'p', // CSS変数のプリフィックス。 var(--p-primary-color)
-          darkModeSelector: false || 'none', // ダークモードOFF
+          darkModeSelector: false, // ダークモードOFF
           cssLayer: false, // 素のCSS/SCSSを使用。CSSスタイル名の衝突回避のためのレイヤーを作らない。
           cssVariables: true, // トークンをCSS変数として出力する。
         },
