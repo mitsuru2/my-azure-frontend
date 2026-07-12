@@ -1,12 +1,13 @@
 <main class="stock-price">
-  <a routerLink="/">&larr; ホームへ戻る</a>
+  <a routerLink="/">&larr; {{ i18n.labels.back_to_home }}</a>
   <h1>stock-price</h1>
   <p>GET /stock-price を実行して株価・投資信託基準価額を取得します。</p>
 
   <div class="form">
     <div class="field">
-      <label for="market">マーケット</label>
+      <label for="market">{{ i18n.labels.market }}</label>
       <p-select
+        class="market-select"
         inputId="market"
         [options]="markets"
         optionLabel="label"
@@ -16,7 +17,7 @@
       />
     </div>
     <div class="field">
-      <label for="ticker">ティッカー</label>
+      <label for="ticker">{{ i18n.labels.ticker }}</label>
       <input
         id="ticker"
         type="text"
@@ -32,7 +33,7 @@
       } @else {
         <svg data-p-icon="play"></svg>
       }
-      実行
+      {{ i18n.labels.execute }}
     </button>
   </div>
 

@@ -1,11 +1,12 @@
 <main class="transactions">
-  <a routerLink="/">&larr; ホームへ戻る</a>
+  <a routerLink="/">&larr; {{ i18n.labels.back_to_home }}</a>
   <h1>transactions</h1>
   <p>取引明細CSV (SBI証券形式) をアップロードし、配当履歴シートへの記録処理を実行します。</p>
 
   <div class="field">
-    <label for="account">口座名義</label>
+    <label for="account">{{ i18n.labels.account_name }}</label>
     <p-select
+      class="account-select"
       inputId="account"
       [options]="accounts"
       [ngModel]="account()"
@@ -36,8 +37,8 @@
           <span class="drop-zone-title">{{ file.name }}</span>
           <span class="drop-zone-subtitle">クリックして別のファイルを選択</span>
         } @else {
-          <span class="drop-zone-title">CSVファイルをここにドロップ</span>
-          <span class="drop-zone-subtitle">またはクリックしてファイルを選択（.csv）</span>
+          <span class="drop-zone-title">{{ i18n.messages.drop_csv_file_here_1 }}</span>
+          <span class="drop-zone-subtitle">{{ i18n.messages.drop_csv_file_here_2 }}</span>
         }
       </div>
     </ng-template>
@@ -49,7 +50,7 @@
     } @else {
       <svg data-p-icon="play"></svg>
     }
-    実行
+    {{ i18n.labels.execute }}
   </button>
 
   @if (submitting()) {

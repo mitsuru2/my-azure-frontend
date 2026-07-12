@@ -2,20 +2,76 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="ja" target-language="en-GB">
     <body>
-      <trans-unit id="hello" datatype="html">
+      <trans-unit id="labels.account_name" datatype="html">
+        <source>口座名義</source>
+        <target>Account Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="labels.back_to_home" datatype="html">
+        <source>ホームへ戻る</source>
+        <target>Back to Home</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="labels.execute" datatype="html">
+        <source>実行</source>
+        <target>Execute</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="labels.hello" datatype="html">
         <source>こんにちは</source>
         <target>Hello</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/locale/_i18n_.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="home" datatype="html">
+      <trans-unit id="labels.home" datatype="html">
         <source>ホーム</source>
         <target>Home</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/locale/_i18n_.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="labels.market" datatype="html">
+        <source>マーケット</source>
+        <target>Market</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="labels.ticker" datatype="html">
+        <source>ティッカー</source>
+        <target>Ticker</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="messages.drop_csv_file_here_1" datatype="html">
+        <source>CSVファイルをここにドロップ</source>
+        <target>Drag and drop your CSV file here.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="messages.drop_csv_file_here_2" datatype="html">
+        <source>またはクリックしてファイルを選択（.csv）</source>
+        <target>Or click to select a file (.csv)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/locale/_i18n_.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
     </body>

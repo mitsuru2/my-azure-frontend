@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:ssr": "npm run build && node dist/my-azure-frontend/server/server.mjs",
     "build": "./scripts/generate-license.sh && npm run clean && ng build && cp -r src/swa/. dist/my-azure-frontend/browser",
     "clean": "rm -rf dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "i18n": "ng extract-i18n --output-path src/locale",
-    "serve:ssr:my-azure-frontend": "node dist/my-azure-frontend/server/server.mjs",
     "mock": "prism mock api/openapi.yaml -p 7071 -h 0.0.0.0"
   },
   "private": true,

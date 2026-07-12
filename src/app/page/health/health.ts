@@ -9,6 +9,7 @@ import { Message } from 'primeng/message';
 
 import { HealthService } from '../../service/health.service';
 import { HealthResponse } from '../../service/models';
+import { i18n } from '../../../locale/_i18n_';
 
 @Component({
   selector: 'app-health',
@@ -17,6 +18,8 @@ import { HealthResponse } from '../../service/models';
   styleUrl: './health.scss',
 })
 export class Health {
+  protected readonly i18n = i18n;
+
   private readonly healthService = inject(HealthService);
 
   protected readonly loading = signal(false);

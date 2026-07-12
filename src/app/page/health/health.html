@@ -1,5 +1,5 @@
 <main class="health">
-  <a routerLink="/">&larr; ホームへ戻る</a>
+  <a routerLink="/">&larr; {{ i18n.labels.back_to_home }}</a>
   <h1>health</h1>
   <p>GET /health を実行してヘルスチェック結果を表示します。</p>
 
@@ -9,7 +9,7 @@
     } @else {
       <svg data-p-icon="play"></svg>
     }
-    実行
+    {{ i18n.labels.execute }}
   </button>
 
   @if (result(); as result) {

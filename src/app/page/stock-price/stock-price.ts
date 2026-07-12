@@ -12,6 +12,7 @@ import { Select } from 'primeng/select';
 
 import { StockPriceService } from '../../service/stock-price.service';
 import { MARKETS, Market, StockPriceResponse } from '../../service/models';
+import { i18n } from '../../../locale/_i18n_';
 
 @Component({
   selector: 'app-stock-price',
@@ -20,6 +21,8 @@ import { MARKETS, Market, StockPriceResponse } from '../../service/models';
   styleUrl: './stock-price.scss',
 })
 export class StockPrice {
+  protected readonly i18n = i18n;
+
   private readonly stockPriceService = inject(StockPriceService);
 
   protected readonly markets = MARKETS;
