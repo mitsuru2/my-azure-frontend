@@ -94,7 +94,7 @@ jobs:
 
           echo "## SWA プレビューデプロイ" >> "$GITHUB_STEP_SUMMARY"
           if [ -n "$URL" ]; then
-            echo "[$URL]($URL)" >> "$GITHUB_STEP_SUMMARY"
+            echo "[Preview URL]($URL)" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "プレビューURLの取得に失敗しました。上記ログを確認してください。" >> "$GITHUB_STEP_SUMMARY"
           fi
@@ -127,8 +127,18 @@ jobs:
 
       - name: Deploy to SWA (production)
         run: |
-          swa deploy "${{ env.BUILD_OUTPUT_DIR }}" \
+          OUTPUT=$(swa deploy "${{ env.BUILD_OUTPUT_DIR }}" \
             --app-name "${{ vars.AZURE_SWA_NAME }}" \
             --resource-group "${{ vars.AZURE_RG_NAME }}" \
             --subscription-id "${{ vars.AZURE_SUBSCRIPTION_ID }}" \
-            --env production
+            --env production \
+            2>&1 | tee /dev/stderr)
+
+          URL=$(echo "$OUTPUT" | grep -oE 'https://[a-zA-Z0-9.-]+\.azurestaticapps\.net[^[:space:]]*' | head -n1 || true)
+
+          echo "## SWA 本番デプロイ" >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "$URL" ]; then
+            echo "[Production URL]($URL)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "本番URLの取得に失敗しました。上記ログを確認してください。" >> "$GITHUB_STEP_SUMMARY"
+          fi
