@@ -57,3 +57,14 @@ export interface OrchestrationStatusResponse {
   createdTime: string;
   lastUpdatedTime: string;
 }
+
+/** 処理が短時間で同期的に完了した場合に 200 (OK) で返るレスポンス。 */
+export interface TransactionsCompletedResponse {
+  addedCount: number;
+}
+
+/** transactions処理の結果 (画面表示に必要な最小限のフィールド)。 */
+export interface TransactionsResult {
+  runtimeStatus: RuntimeStatus;
+  output?: unknown;
+}

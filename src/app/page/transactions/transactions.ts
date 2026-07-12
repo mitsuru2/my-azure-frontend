@@ -13,7 +13,7 @@ import { Select } from 'primeng/select';
 import { switchMap } from 'rxjs';
 
 import { TransactionsService } from '../../service/transactions.service';
-import { OrchestrationStatusResponse } from '../../service/models';
+import { TransactionsResult } from '../../service/models';
 import { i18n } from '../../../locale/_i18n_';
 
 const ACCOUNTS: string[] = ['高橋充', '高橋恵'];
@@ -45,7 +45,7 @@ export class Transactions {
   protected readonly selectedFile = signal<File | null>(null);
 
   protected readonly submitting = signal(false);
-  protected readonly status = signal<OrchestrationStatusResponse | null>(null);
+  protected readonly status = signal<TransactionsResult | null>(null);
   protected readonly error = signal<string | null>(null);
 
   protected readonly canSubmit = () =>

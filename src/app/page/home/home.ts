@@ -25,7 +25,7 @@ export class Home {
     {
       path: '/transactions',
       title: 'transactions',
-      description: '取引明細CSVの取り込み (POST /transactions)',
+      description: '入出金明細CSVの取り込み (POST /transactions)',
     },
   ];
 }

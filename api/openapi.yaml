@@ -90,9 +90,12 @@ paths:
         銘柄名・銘柄コードは「当月資産状況」シートを参照して補完する。
 
         処理はDurable Functionsのオーケストレーターとして非同期に実行される。
-        本エンドポイントは処理の起動のみを行い、レスポンスの `statusQueryGetUri` を
+        本エンドポイントは通常は処理の起動のみを行い、`202` レスポンスの `statusQueryGetUri` を
         ポーリングして完了 (`runtimeStatus` が `Completed`/`Failed`/`Terminated`) を待つ。
-        正常完了時は `output` に `{ addedCount: number }` が格納される。
+        ただし処理が短時間で完了した場合は、ポーリングを待たずに `200` で処理結果
+        (`{ addedCount: number }`) をそのまま返すことがある。
+        `202` の場合、ポーリングで得られる完了レスポンスの `output` にも同様に
+        `{ addedCount: number }` が格納される。
       operationId: postTransactions
       tags: [transactions]
       requestBody:
@@ -102,8 +105,16 @@ paths:
             schema:
               $ref: '#/components/schemas/TransactionsRequest'
       responses:
+        '200':
+          description: 処理完了 (短時間で同期的に完了した場合)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsCompletedResponse'
+              example:
+                addedCount: 3
         '202':
-          description: 処理起動受付
+          description: 処理起動受付 (非同期実行中、ポーリングが必要)
           content:
             application/json:
               schema:
@@ -246,6 +257,15 @@ components:
           description: 取引明細CSV (UTF-8テキストをBase64エンコードしたもの)
           format: byte
       required: [format, account, csv]
+
+    TransactionsCompletedResponse:
+      type: object
+      description: transactions処理が同期的に完了した場合の結果。
+      properties:
+        addedCount:
+          type: integer
+          description: 配当履歴シートに追記された件数
+      required: [addedCount]
 
     ErrorResponse:
       type: object

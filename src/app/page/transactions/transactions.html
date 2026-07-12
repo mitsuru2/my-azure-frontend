@@ -1,7 +1,7 @@
 <main class="transactions">
   <a routerLink="/">&larr; {{ i18n.labels.back_to_home }}</a>
   <h1>transactions</h1>
-  <p>取引明細CSV (SBI証券形式) をアップロードし、配当履歴シートへの記録処理を実行します。</p>
+  <p>入出金明細CSV (SBI証券形式) をアップロードし、配当履歴シートへの記録処理を実行します。</p>
 
   <div class="field">
     <label for="account">{{ i18n.labels.account_name }}</label>
@@ -64,7 +64,9 @@
         <dd>{{ status.runtimeStatus }}</dd>
         @if (status.output) {
           <dt>output</dt>
-          <dd><pre>{{ status.output | json }}</pre></dd>
+          <dd>
+            <pre>{{ status.output | json }}</pre>
+          </dd>
         }
       </dl>
     </p-card>
